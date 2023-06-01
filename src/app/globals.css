@@ -67,6 +67,7 @@ header {
 .array-bar {
   width: 2%;
   background-color: #89CFF0;
-  border-radius: 2px;
+  border-right: 1px solid black;
+  border-left: 1px solid black;
 }
 

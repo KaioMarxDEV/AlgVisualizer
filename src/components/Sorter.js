@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Array from './Array';
 
+import { getBubbleSortAnimations, playAnimations } from '../utils/bubbleAnimations';
 import { getQuickSortAnimations } from '../utils/quickAnimation';
 
 export default function Sorter() {
@@ -31,7 +32,7 @@ export default function Sorter() {
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-        }, i * 100);
+        }, i * 30);
       } else {
         const [_, barOneIdx, newHeightOne, barTwoIdx, newHeightTwo] = animations[i];
         const barOneStyle = arrayBars[barOneIdx].style;
@@ -39,17 +40,15 @@ export default function Sorter() {
         setTimeout(() => {
           barOneStyle.height = `${newHeightOne}px`;
           barTwoStyle.height = `${newHeightTwo}px`;
-        }, i * 100);
+        }, i * 30);
       }
     }
   }
 
-  function mergeSort() {
-    // To be implemented
-  }
-
-  function bubbleSort() {
-    // To be implemented
+  async function bubbleSort() {
+    const arrayCopy = [...array];
+    const animations = getBubbleSortAnimations(arrayCopy);
+    await playAnimations(animations, arrayCopy);
   }
 
   function randomIntFromInterval(min, max) {
@@ -62,8 +61,7 @@ export default function Sorter() {
         <button className='button' onClick={resetArray}>Gerar Novos Dados</button>
         <span>Algoritmos:</span>
         <button className='button' onClick={quickSort}>Quick Sort</button>
-        {/* <button className='button' onClick={mergeSort}>Merge Sort</button>
-        <button className='button' onClick={bubbleSort}>Bubble Sort</button> */}
+        <button className='button' onClick={bubbleSort}>Bubble Sort</button>
       </header>
       <Array array={array} />
     </div>
